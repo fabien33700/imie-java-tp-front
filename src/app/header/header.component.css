@@ -1,0 +1,20 @@
+header{
+  text-align: center;
+}
+img{
+  width: 60px;
+}
+#connection{
+  width: 10%;
+  display: inline-block;
+  vertical-align: top;
+  text-align: left;
+}
+#title{
+  width: 79%;
+  display: inline-block;
+}
+#social{
+  width: 10%;
+  display: inline-block;
+}

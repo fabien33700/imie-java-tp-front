@@ -1,0 +1,26 @@
+<div id ="form-connexion">
+  <h1 mat-dialog-title xmlns="">Bonjour {{data.prenom}}</h1>
+  <div mat-dialog-content>
+    <!--
+    <mat-form-field>
+      <input matInput [(ngModel)]="data.animal">
+    </mat-form-field>
+    -->
+  </div>
+
+  <form class="example-form">
+    <mat-form-field class="example-full-width">
+      <input matInput placeholder="prenom" value="kevin">
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+        <input matInput placeholder="nom" value="denouille">
+    </mat-form-field>
+  </form>
+
+  <div mat-dialog-actions>
+    <button mat-button (click)="onNoClick()">No Thanks</button>
+    <button mat-button [mat-dialog-close]="data.prenom" cdkFocusInitial>LOGIN</button>
+  </div>
+
+</div>
