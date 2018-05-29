@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import {NgModule} from '@angular/core';
+import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from '@angular/core';
 
 
 import { AppComponent } from './app.component';
@@ -14,6 +14,8 @@ import { ConnectionserviceComponent } from './header/connectionservice/connectio
 import {FormsModule} from '@angular/forms';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {CommonModule} from '@angular/common';
+import {ChartModule} from 'angular-highcharts';
+import {HighchartsModulesComponent} from './highcharts-modules/highcharts-modules.component';
 
 
 
@@ -23,6 +25,7 @@ import {CommonModule} from '@angular/common';
     AppComponent,
     HeaderComponent,
     ConnectionserviceComponent,
+    HighchartsModulesComponent,
   ],
   imports: [
     BrowserModule,
@@ -40,11 +43,12 @@ import {CommonModule} from '@angular/common';
     FormsModule,
     MatToolbarModule,
     CommonModule,
+    ChartModule
   ],
   entryComponents: [
     ConnectionserviceComponent
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })
 export class AppModule { }
