@@ -1,2 +1,33 @@
-<button (click)="add()">Add Point!</button>
+<button mat-raised-button color="accent" (click)="add()">Add Point!</button>
+
+
+<mat-form-field>
+  <input matInput [matDatepicker]="picker" placeholder="Choose a date" value="{{selectedDate}}" >
+  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+  <mat-datepicker #picker></mat-datepicker>
+</mat-form-field>
+
+<button (click)="open()">Time</button>
+<input type="time" value="{{selectedTime}}">
+
+
+    <mat-checkbox name="CPU0" value="cpu0">CPU 0</mat-checkbox>
+    <mat-checkbox name="CPU1" value="CPU1">CPU 1</mat-checkbox>
+    <mat-checkbox name="CPU2" value="CPU2">CPU 3</mat-checkbox>
+    <mat-checkbox name="CPU3" value="CPU3">CPU 4</mat-checkbox>
+    <mat-checkbox name="CPU4" value="CPU4">CPU 5</mat-checkbox>
+    <mat-checkbox name="CPU5" value="CPU5">CPU 6</mat-checkbox>
+    <mat-checkbox name="CPU6" value="CPU6">CPU 7</mat-checkbox>
+    <mat-checkbox name="CPU7" value="CPU7">CPU 8</mat-checkbox>
+
+
+<mat-checkbox name="memory_used" value="memory_used">memory_used </mat-checkbox>
+<mat-checkbox name="memory_size" value="memory_size">memory_size </mat-checkbox>
+<mat-checkbox name="traffic_in" value="traffic_in">traffic_in</mat-checkbox>
+<mat-checkbox name="traffic_out" value="traffic_out">traffic_out</mat-checkbox>
+<mat-checkbox name="security_error" value="security_error">security_error</mat-checkbox>
+<mat-checkbox name="disk_used" value="disk_used">disk_used</mat-checkbox>
+<mat-checkbox name="disk_size" value="disk_size">disk_size</mat-checkbox>
+
+
 <div [chart]="chart"></div>

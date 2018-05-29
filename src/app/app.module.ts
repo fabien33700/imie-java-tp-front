@@ -5,8 +5,8 @@ import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from '@angular/core';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import {
-  MatButtonModule, MatCardModule,
-  MatDialogModule, MatFormFieldModule, MatGridListModule, MatInputModule,
+  MatButtonModule, MatCardModule, MatCheckboxModule, MatDatepickerModule,
+  MatDialogModule, MatFormFieldControl, MatFormFieldModule, MatGridListModule, MatInputModule, MatNativeDateModule,
   MatTableModule, MatToolbarModule,
 
 } from '@angular/material';
@@ -16,6 +16,9 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {CommonModule} from '@angular/common';
 import {ChartModule} from 'angular-highcharts';
 import {HighchartsModulesComponent} from './highcharts-modules/highcharts-modules.component';
+import {ChartDataService} from './chart-data.service';
+import {AmazingTimePickerModule, AmazingTimePickerService} from 'amazing-time-picker';
+import {HttpClient, HttpClientModule} from '@angular/common/http';
 
 
 
@@ -29,6 +32,7 @@ import {HighchartsModulesComponent} from './highcharts-modules/highcharts-module
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     MatTableModule,
     MatDialogModule,
     MatFormFieldModule,
@@ -43,8 +47,14 @@ import {HighchartsModulesComponent} from './highcharts-modules/highcharts-module
     FormsModule,
     MatToolbarModule,
     CommonModule,
-    ChartModule
+    ChartModule,
+    MatCheckboxModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    AmazingTimePickerModule,
+
   ],
+  providers: [ChartDataService, HttpClient],
   entryComponents: [
     ConnectionserviceComponent
   ],
