@@ -1,7 +1,7 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
-import { map }        from 'rxjs/operators';
+import { HttpClient }        from '@angular/common/http';
+import { Injectable }        from '@angular/core';
+import { Observable }        from 'rxjs/Observable';
+import {  map }   from 'rxjs/operators';
 
 export interface ChartRequest {
   server: string;
@@ -20,7 +20,10 @@ export class ChartDataService {
 
   getChartData(request: ChartRequest): Observable<Data[]> {
     const source = this.http.get<Data[]>(this.resolve(request));
-    return source.pipe(map(data => data.map(ChartDataService.processData)))
+    return source.pipe(
+      map(data => data
+        .map(ChartDataService.processData)
+        .filter(raw => raw[1] !== null)));
   }
 
   protected static processData(raw: Data): Data {
