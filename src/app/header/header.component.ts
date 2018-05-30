@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import {MatDialog} from '@angular/material/dialog';
-import {ConnectionserviceComponent} from './connectionservice/connectionservice.component';
+import { Component, OnInit }          from '@angular/core';
+import { MatDialog }                  from '@angular/material/dialog';
+import { ConnectionserviceComponent } from './connectionservice/connectionservice.component';
 
 @Component({
   selector: 'app-header',

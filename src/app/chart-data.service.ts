@@ -1,16 +1,49 @@
-import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs/Observable';
-import {HttpClient} from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
+import { map }        from 'rxjs/operators';
 
+export interface ChartRequest {
+  server: string;
+  series: string[];
+  begin?: number;
+  end?: number;
+}
+
+export declare type Data = [number, number];
 
 @Injectable()
 export class ChartDataService {
-  apiUrl: string ='http://localhost:8080/api/charts?server=srv-DC-london_global&series=cpu0&begin=1515020400&end=1515106800';
+  readonly ENDPOINT = 'http://localhost:8080/api/charts';
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient) {}
+
+  getChartData(request: ChartRequest): Observable<Data[]> {
+    const source = this.http.get<Data[]>(this.resolve(request));
+    return source.pipe(map(data => data.map(ChartDataService.processData)))
   }
-  getChartData(): Observable<Array<[number, number]>> {
 
-    return this.http.get<Array<[number, number]>>(this.apiUrl);
+  protected static processData(raw: Data): Data {
+    return [raw[0] * 1000, raw[1]]
+  }
+
+  protected resolve(request: ChartRequest): string {
+    if (!request) return this.ENDPOINT;
+
+    let parts: Array<[string, string]> = [];
+    parts.push(['server', request.server]);
+    request.series.forEach(serie =>
+      parts.push(['series', serie]));
+
+    if (request.begin)
+      parts.push(['begin', request.begin.toString()]);
+
+    if (request.end)
+      parts.push(['end', request.end.toString()]);
+
+
+    return this.ENDPOINT + "?" + parts
+      .map(tuple => tuple.join("="))
+      .join("&");
   }
 }

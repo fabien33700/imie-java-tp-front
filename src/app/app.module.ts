@@ -1,27 +1,33 @@
-import { BrowserModule } from '@angular/platform-browser';
-import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from '@angular/core';
-
-
-import { AppComponent } from './app.component';
-import { HeaderComponent } from './header/header.component';
+import { CommonModule }                     from '@angular/common';
+import { HttpClient, HttpClientModule }                                    from '@angular/common/http';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule }                                from '@angular/core';
+import { FormsModule }                                                     from '@angular/forms';
 import {
-  MatButtonModule, MatCardModule, MatCheckboxModule, MatDatepickerModule,
-  MatDialogModule, MatFormFieldControl, MatFormFieldModule, MatGridListModule, MatInputModule, MatNativeDateModule,
-  MatTableModule, MatToolbarModule,
-
+  MAT_CHECKBOX_CLICK_ACTION,
+  MatButtonModule,
+  MatCardModule,
+  MatCheckboxModule,
+  MatDatepickerModule,
+  MatDialogModule,
+  MatFormFieldModule,
+  MatGridListModule,
+  MatInputModule,
+  MatNativeDateModule, MatSelectModule,
+  MatTableModule,
+  MatToolbarModule
 } from '@angular/material';
+import { MatMomentDateModule } from '@angular/material-moment-adapter';
+import { BrowserModule }                                                   from '@angular/platform-browser';
+import { BrowserAnimationsModule }                                         from '@angular/platform-browser/animations';
+import { AmazingTimePickerModule }                                         from 'amazing-time-picker';
+import { ChartModule }                                                     from 'angular-highcharts';
+
+import { AppComponent }               from './app.component';
+import { ChartDataService }           from './chart-data.service';
 import { ConnectionserviceComponent } from './header/connectionservice/connectionservice.component';
-import {FormsModule} from '@angular/forms';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {CommonModule} from '@angular/common';
-import {ChartModule} from 'angular-highcharts';
-import {HighchartsModulesComponent} from './highcharts-modules/highcharts-modules.component';
-import {ChartDataService} from './chart-data.service';
-import {AmazingTimePickerModule, AmazingTimePickerService} from 'amazing-time-picker';
-import {HttpClient, HttpClientModule} from '@angular/common/http';
-
-
-
+import { HeaderComponent }            from './header/header.component';
+import { HighchartsModulesComponent } from './highcharts-modules/highcharts-modules.component';
+import { KeyValuePipe }               from './highcharts-modules/key-value.pipe';
 
 @NgModule({
   declarations: [
@@ -29,6 +35,7 @@ import {HttpClient, HttpClientModule} from '@angular/common/http';
     HeaderComponent,
     ConnectionserviceComponent,
     HighchartsModulesComponent,
+    KeyValuePipe,
   ],
   imports: [
     BrowserModule,
@@ -52,9 +59,11 @@ import {HttpClient, HttpClientModule} from '@angular/common/http';
     MatDatepickerModule,
     MatNativeDateModule,
     AmazingTimePickerModule,
-
+    MatSelectModule
   ],
-  providers: [ChartDataService, HttpClient],
+  providers: [ChartDataService, HttpClient,
+    {provide: MAT_CHECKBOX_CLICK_ACTION, useValue: 'noop'},
+  ],
   entryComponents: [
     ConnectionserviceComponent
   ],

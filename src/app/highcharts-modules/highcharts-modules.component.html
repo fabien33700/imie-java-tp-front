@@ -1,33 +1,47 @@
-<button mat-raised-button color="accent" (click)="add()">Add Point!</button>
 
 
-<mat-form-field>
-  <input matInput [matDatepicker]="picker" placeholder="Choose a date" value="{{selectedDate}}" >
-  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-  <mat-datepicker #picker></mat-datepicker>
-</mat-form-field>
+<mat-card>
+  <mat-card-content style="display:flex; flex-direction: row;">
+    <div style="flex: 1">
+      <h2>Options d'affichage</h2>
+      <mat-form-field>
+        <mat-select [(ngModel)]="server" placeholder="Serveur" (change)="update(true)">
+          <mat-option *ngFor="let server of SERVERS" [value]="server">
+            {{ server }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
 
-<button (click)="open()">Time</button>
-<input type="time" value="{{selectedTime}}">
+      <mat-form-field>
+        <input matInput [min]="fromTimestamp(MIN_DATE)" [max]="end"
+               [matDatepicker]="beginDate" placeholder="Date de début de mesure" [value]="begin"
+               readonly>
+        <mat-datepicker-toggle matSuffix [for]="beginDate"></mat-datepicker-toggle>
+        <mat-datepicker #beginDate (selectedChanged)="selectBeginDate($event)"></mat-datepicker>
+      </mat-form-field>
+
+      <mat-form-field>
+        <input matInput [min]="begin" [max]="fromTimestamp(MAX_DATE)"
+               [matDatepicker]="endDate" placeholder="Date de fin de mesure" [value]="end"
+               readonly>
+        <mat-datepicker-toggle matSuffix [for]="endDate"></mat-datepicker-toggle>
+        <mat-datepicker #endDate (selectedChanged)="selectEndDate($event)"></mat-datepicker>
+      </mat-form-field>
+
+      <div *ngFor="let serie of seriesDefs | keyValue" class="controls">
+        <mat-checkbox [checked]="activeSeries.indexOf(serie.key) > -1"
+                      (click)="toggleSeries(serie.key)"
+                      [value]="serie.key">{{serie.value}}
+        </mat-checkbox>
+      </div>
+    </div>
 
 
-    <mat-checkbox name="CPU0" value="cpu0">CPU 0</mat-checkbox>
-    <mat-checkbox name="CPU1" value="CPU1">CPU 1</mat-checkbox>
-    <mat-checkbox name="CPU2" value="CPU2">CPU 3</mat-checkbox>
-    <mat-checkbox name="CPU3" value="CPU3">CPU 4</mat-checkbox>
-    <mat-checkbox name="CPU4" value="CPU4">CPU 5</mat-checkbox>
-    <mat-checkbox name="CPU5" value="CPU5">CPU 6</mat-checkbox>
-    <mat-checkbox name="CPU6" value="CPU6">CPU 7</mat-checkbox>
-    <mat-checkbox name="CPU7" value="CPU7">CPU 8</mat-checkbox>
+    <div style="flex: 1">
+      <h2>Données de télémétrie pour {{ server }}</h2>
+      <div [chart]="chart"></div>
+      <small>données pour la période du {{ begin | date:'dd/MM/yyyy'}} au {{ end | date:'dd/MM/yyyy' }} inclus</small>
+    </div>
+  </mat-card-content>
+</mat-card>
 
-
-<mat-checkbox name="memory_used" value="memory_used">memory_used </mat-checkbox>
-<mat-checkbox name="memory_size" value="memory_size">memory_size </mat-checkbox>
-<mat-checkbox name="traffic_in" value="traffic_in">traffic_in</mat-checkbox>
-<mat-checkbox name="traffic_out" value="traffic_out">traffic_out</mat-checkbox>
-<mat-checkbox name="security_error" value="security_error">security_error</mat-checkbox>
-<mat-checkbox name="disk_used" value="disk_used">disk_used</mat-checkbox>
-<mat-checkbox name="disk_size" value="disk_size">disk_size</mat-checkbox>
-
-
-<div [chart]="chart"></div>
